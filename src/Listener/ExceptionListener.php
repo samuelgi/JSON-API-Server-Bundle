@@ -69,7 +69,7 @@ class ExceptionListener
      * @param \Throwable $throwable
      * @return JsonApiException
      */
-    private function convertThrowable(\Throwable $throwable): JsonApiException
+    private function convertThrowable(\Throwable $throwable): \Throwable
     {
         if ($throwable instanceof JsonApiException) {
             return $throwable;
@@ -84,6 +84,6 @@ class ExceptionListener
             );
         }
 
-        return new JsonApiException($throwable->getMessage(), $throwable->getCode(), $throwable);
+        return $throwable;
     }
 }
