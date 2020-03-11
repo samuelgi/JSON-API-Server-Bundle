@@ -7,7 +7,7 @@ use Enm\Bundle\JsonApi\Server\Response\JsonApiResponse;
 use Enm\JsonApi\Exception\HttpException;
 use Enm\JsonApi\Exception\JsonApiException;
 use Enm\JsonApi\Server\JsonApiServer;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 /**
@@ -43,12 +43,12 @@ class ExceptionListener
     }
 
     /**
-     * @param GetResponseForExceptionEvent $event
+     * @param ExceptionEvent $event
      *
      * @return void
      * @throws \Exception
      */
-    public function onKernelException(GetResponseForExceptionEvent $event): void
+    public function onKernelException(ExceptionEvent $event): void
     {
         $apiRoute = strpos((string)$event->getRequest()->attributes->get('_route'), $this->routeNamePrefix) === 0;
         $apiType = $event->getRequest()->headers->get('Content-Type') === 'application/vnd.api+json';
