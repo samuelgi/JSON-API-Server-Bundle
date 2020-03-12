@@ -54,7 +54,7 @@ class ExceptionListener
         $apiType = $event->getRequest()->headers->get('Content-Type') === 'application/vnd.api+json';
 
         if ($apiRoute || $apiType) {
-            $response = $this->jsonApi->handleException($this->convertThrowable($event->getException()), $this->debug);
+            $response = $this->jsonApi->handleException($this->convertThrowable($event->getThrowable()), $this->debug);
             $event->setResponse(
                 new JsonApiResponse(
                     $this->jsonApi->createResponseBody($response),
